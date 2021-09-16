@@ -36,6 +36,8 @@ namespace API
             });
 
             services.AddControllers();
+            /* CORS - Cross-Origin Resource Sharing, is an HTTP-header based mechanism that allows a server to indicate any 
+             origins (domain, scheme, or port) other than its own from which a browser should permit loading of resources. */
             services.AddCors();
 
             services.AddSwaggerGen(c =>
@@ -59,7 +61,7 @@ namespace API
             app.UseRouting();
 
             //Allow to the front-end to access to the API - the back-end
-            app.UseCors( policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            app.UseCors( policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
