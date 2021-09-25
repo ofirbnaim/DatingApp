@@ -13,6 +13,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
+using API.Services;
+using API.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using API.Extensions;
 
 namespace API
 {
@@ -29,21 +35,23 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Alow to use the data in DB every part in the programm by adding "_config" witch is the config file (appsettings.Development.json) of my DB
-            services.AddDbContext<DataContext>(options =>
-            {
-                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
-            });
-
+            // Static class i created to keep Start-Up class clean and to re-use my code
+            services.AddAplicationServices(_config);
             services.AddControllers();
-            /* CORS - Cross-Origin Resource Sharing, is an HTTP-header based mechanism that allows a server to indicate any 
-             origins (domain, scheme, or port) other than its own from which a browser should permit loading of resources. */
+             #region 
+                /* CORS - Cross-Origin Resource Sharing, is an HTTP-header based mechanism that allows a server to indicate any origins 
+                (domain, scheme, or port) other than its own from which a browser should permit loading of resources. */
+            #endregion
             services.AddCors();
-
+            // Static class i created to keep Start-Up class clean and to re-use my code
+            services.AddIdentityServices(_config);
+            
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +71,7 @@ namespace API
             //Allow to the front-end to access to the API - the back-end
             app.UseCors( policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
