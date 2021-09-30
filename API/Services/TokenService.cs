@@ -20,10 +20,10 @@ namespace API.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
+        // Function i am implements from ITokenService
         public string CreateToken(AppUser user)
         {
-
-            // Add some details on the user
+            // Add some details on the user, I can add here what ever i want
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName)

@@ -37,15 +37,16 @@ namespace API
         {
             // Static class i created to keep Start-Up class clean and to re-use my code
             services.AddAplicationServices(_config);
+
             services.AddControllers();
              #region 
                 /* CORS - Cross-Origin Resource Sharing, is an HTTP-header based mechanism that allows a server to indicate any origins 
                 (domain, scheme, or port) other than its own from which a browser should permit loading of resources. */
             #endregion
             services.AddCors();
+
             // Static class i created to keep Start-Up class clean and to re-use my code
             services.AddIdentityServices(_config);
-            
             
             services.AddSwaggerGen(c =>
             {

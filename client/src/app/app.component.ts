@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   _title = 'The Dating App';
   _users: any;
+  _token: string;
 
   constructor(private http: HttpClient)
   {
@@ -27,5 +28,6 @@ export class AppComponent implements OnInit {
         response => { this._users = response; }
       , error => { console.log(error); }
       )
+
   }
 }
