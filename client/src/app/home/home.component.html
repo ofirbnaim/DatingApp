@@ -12,8 +12,12 @@
     <div *ngIf="_registerMode" class="container">
         <div class="row justify-content-center">
             <div class="col-4" >
-                <!-- Parent to Child communication: "_users" belong to the parent, "usersFromHomeComponent" belong to the child -->
-                <app-register [usersFromHomeComponent]="_users" ></app-register>
+                <!-- Parent to Child communication: "_users" belong to the parent(Home), "usersFromHomeComponent" belong to the child(Register). -->
+                <!-- The "usersFromHomeComponent" recieve data from "_users"  -->
+                <!-- Child to Parent communication: "cancelRegiseter" belong to child (Register)-->
+                <!-- "cancelRegisterMode" is Parent function that recieved True or False from the property "cancelRegiseter" -->
+                <!-- $event is the value (True or False) that "cancelRegiseter" emmit in to "cancelRegisterMode" methode that belong to Home component-->
+                <app-register [usersFromHomeComponent]="_users" (cancelRegiseter)="cancelRegisterMode($event)"></app-register>
             </div>
         </div>
     </div>

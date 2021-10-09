@@ -28,4 +28,9 @@ export class HomeComponent implements OnInit {
       , error => { console.log(error); }
       )
   }
+
+  // This function initialized by the child property - "cancelRegister" from Home.Html which send True or False
+  cancelRegisterMode(event: boolean){
+    this._registerMode = event;
+  }
 }
