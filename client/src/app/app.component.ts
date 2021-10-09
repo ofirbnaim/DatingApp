@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): any 
   {
-    this.getUsers();
     this.setCurrentUser();
   }
 
@@ -30,14 +29,5 @@ export class AppComponent implements OnInit {
     // Convert the user from string back to User type (it is the opposite operation i did in account.service.ts)
     const user: User = JSON.parse(localStorage.getItem('user'));
     this.accountService.setCurrentUser(user);
-  }
-
-  getUsers()
-  {
-    this.http.get('https://localhost:5001/api/users').subscribe( 
-        response => { this._users = response; }
-      , error => { console.log(error); }
-      )
-
   }
 }

@@ -11,8 +11,9 @@
     <!--Represent the app-register-->
     <div *ngIf="_registerMode" class="container">
         <div class="row justify-content-center">
-            <div class="col-4">
-                <app-register></app-register>
+            <div class="col-4" >
+                <!-- Parent to Child communication: "_users" belong to the parent, "usersFromHomeComponent" belong to the child -->
+                <app-register [usersFromHomeComponent]="_users" ></app-register>
             </div>
         </div>
     </div>
