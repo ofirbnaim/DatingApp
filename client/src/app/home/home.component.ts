@@ -8,25 +8,15 @@ import { Component, OnInit, Output } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  _users: any;
   public _registerMode: boolean = false;
 
-  constructor(private http:HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getUsers();
   }
 
   registerToggle(){
     this._registerMode = !this._registerMode;
-  }
-
-  getUsers()
-  {
-    this.http.get('https://localhost:5001/api/users').subscribe( 
-      response => { this._users = response; }
-      , error => { console.log(error); }
-      )
   }
 
   // This function initialized by the child property - "cancelRegister" from Home.Html which send True or False

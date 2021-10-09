@@ -24,21 +24,39 @@ export class AccountService{
       map((response: User) =>{
         const user = response;
         if(user)
-        localStorage.setItem('user', JSON.stringify(user)); // Save the user to the local storage of the browser
-        this.currentUserSource.next(user);
+        {
+          localStorage.setItem('user', JSON.stringify(user)); // Save the user to the local storage of the browser
+          this.currentUserSource.next(user);
+        }
       })
     )
   }
 
-  setCurrentUser(user: User){
-    this.currentUserSource.next(user);
-  }
-
+  
   logout(){
     localStorage.removeItem('user'); // Remove the user from the local storage of the browser
     this.currentUserSource.next(null); // When we logout we set the buffer to null
   }
+  
+  
+  register(model: any){
+    // I am sending the user to the API and also write it into to browser local memory
+    return this.http.post(this._baseUrl + 'account/register', model).pipe(
+      map((response: User) =>{
+        if(response)
+        {
+          localStorage.setItem('user', JSON.stringify(response));
+          this.currentUserSource.next(response);
+        }
+        // If i want to see back the user in register componenet or in the console, i have to return it here
+        // return response;
+      })
+    )
+  }
 
 
+  setCurrentUser(user: User){
+    this.currentUserSource.next(user);
+  }
 
 }
