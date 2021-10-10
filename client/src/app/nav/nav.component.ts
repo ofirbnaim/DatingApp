@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'; // Allowing to create notifications
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -15,7 +16,7 @@ export class NavComponent implements OnInit {
   
   _model: any = {} // The object that holds the "two way binding"
   
-  constructor(public accountService: AccountService, private router: Router) { }
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
   
   ngOnInit(): void {
   }
@@ -24,8 +25,14 @@ export class NavComponent implements OnInit {
   login(){
     this.accountService.login(this._model)
     .subscribe(
-      response => { this.router.navigateByUrl('/members')}, 
-      error    => { console.log(error);}
+      response => { 
+      this.router.navigateByUrl('/members'); // If Login success, the user rout to members component
+      this.toastr.success("You are logged in!"); // If Login success, green notification will appear
+      }, 
+      error => { 
+      console.log(error);
+      this.toastr.error(error.error); // If Login failed, red notification will appear with the error message
+      }
       )
     }
     

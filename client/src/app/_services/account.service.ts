@@ -40,7 +40,7 @@ export class AccountService{
   
   
   register(model: any){
-    // I am sending the user to the API and also write it into to browser local memory
+    // I am sending the user to the API and also write it into the browser local memory
     return this.http.post(this._baseUrl + 'account/register', model).pipe(
       map((response: User) =>{
         if(response)
@@ -48,8 +48,6 @@ export class AccountService{
           localStorage.setItem('user', JSON.stringify(response));
           this.currentUserSource.next(response);
         }
-        // If i want to see back the user in register componenet or in the console, i have to return it here
-        // return response;
       })
     )
   }

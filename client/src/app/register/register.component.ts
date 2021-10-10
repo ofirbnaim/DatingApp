@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr'; // Allowing to create notifications
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   _model: any={};
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService,  private toastr: ToastrService) { }
 
   ngOnInit(): void {
     
@@ -23,11 +24,13 @@ export class RegisterComponent implements OnInit {
   register(){
     this.accountService.register(this._model).subscribe( 
       response => { 
-        // console.log(response);
-        this.cancel();
+        console.log(response);
+        this.cancel(); // Call to cancel() function - here in this component
+        this.toastr.success('Register has succeeded'); // If Login success, green notification will appear
     }, 
       error => { 
         console.log(error);
+        this.toastr.error(error.error); // If Register failed, red notification will appear with the error message
     })
   }
 
