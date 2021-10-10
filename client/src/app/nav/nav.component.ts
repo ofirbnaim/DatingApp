@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -14,7 +15,7 @@ export class NavComponent implements OnInit {
   
   _model: any = {} // The object that holds the "two way binding"
   
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, private router: Router) { }
   
   ngOnInit(): void {
   }
@@ -23,12 +24,13 @@ export class NavComponent implements OnInit {
   login(){
     this.accountService.login(this._model)
     .subscribe(
-      response => { console.log(response);}, 
+      response => { this.router.navigateByUrl('/members')}, 
       error    => { console.log(error);}
       )
     }
     
     logout(){ 
+      this.router.navigateByUrl('/') // Navigate back to home componenet
       this.accountService.logout();
     }
     
