@@ -1,24 +1,26 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container">
         <a class="navbar-brand" routerLink='/' routerLinkActive='active'>Dating App</a>
     
     
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink='/messages' routerLinkActive='active'>Messages</a>
-        </li>
+    <ul class="navbar-nav mr-auto" > 
+        <ng-container *ngIf="accountService._currentUser$ | async"> <!--*ngIf="accountService._currentUser$ | async" - only if is a user - it will show up the Links -->
+            <li class="nav-item">
+                <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink='/messages' routerLinkActive='active'>Messages</a>
+            </li>
+        </ng-container>
     </ul>
 
 
     <!-- Welcome user DropDown-->
-    <div class="dropdown" *ngIf="accountService._currentUser$ | async" dropdown>
-        <a class="dropdown-toggle text-light" dropdownToggle> Welcome user </a> <!-- *dropdownToggle make the functionality to dropdown-->
+    <div class="dropdown" *ngIf="(accountService._currentUser$ | async) as user" dropdown> <!--*ngIf="accountService._currentUser$ | async" - only if is a user - it will show up the Dropdown -->
+        <a class="dropdown-toggle text-light" dropdownToggle> Welcome {{user.userName | titlecase}} </a> <!-- *dropdownToggle make the functionality to dropdown-->
         <div class="dropdown-menu mt-3" *dropdownMenu>  <!-- *dropdownMenu make the functionality to dropdown-->
             <a class="dropdown-item">Edit Profile</a>
             <div class="dropdown-divider"></div> <!-- Make the seperate line-->
@@ -44,7 +46,7 @@
             type="password" 
             placeholder="Password">
 
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
 
     </form>
     </div>  
