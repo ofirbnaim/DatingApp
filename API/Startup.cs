@@ -60,7 +60,7 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {    
 
-            // My rException middleware
+            // My Exception middleware
             app.UseMiddleware<ExceptionMiddleware>();
 
             // if (env.IsDevelopment())

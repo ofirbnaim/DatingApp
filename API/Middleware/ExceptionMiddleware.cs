@@ -21,7 +21,6 @@ namespace API.Middleware
             _env = env;
             _logger = logger;
             _next = next;
-
         }
 
         public async Task InvokeAsync(HttpContext context){
@@ -44,7 +43,7 @@ namespace API.Middleware
                              // the "ex.StackTrace?.ToString()" to make sure it is not null
                              ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
                              // If i am in Production mode:
-                             // I'm reflactiong the error as "Internal Server Error" and not somthing more explicit
+                             // I'm reflacting the error as "Internal Server Error" and not somthing more explicit
                              // because i'm in production mode and the user will see the error
                              : new ApiException(context.Response.StatusCode, "Internal Server Error"); 
 
