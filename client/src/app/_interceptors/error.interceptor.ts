@@ -31,7 +31,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     modalStateErrors.push(error.error.errors[key]);   
                   }
                 }
-                throw modalStateErrors;
+                // Flatten array of arrays into array
+                // must to change the 'lib' section in tsconfig.json to 'es2019'
+                throw modalStateErrors.flat();
               }
               // second type
               else {
