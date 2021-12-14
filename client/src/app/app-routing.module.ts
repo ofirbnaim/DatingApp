@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
@@ -15,7 +16,9 @@ const routes: Routes = [
   {path: 'lists', component: ListsComponent, canActivate: [AuthGuard]},
   {path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
   {path: 'errors', component: TestErrorsComponent},
+  {path: 'not-found', component: NotFoundComponent},
   {path: '**', component: HomeComponent, pathMatch: 'full'},
+
 ];
 
 @NgModule({

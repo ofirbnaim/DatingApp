@@ -29,10 +29,6 @@ export class NavComponent implements OnInit {
       this.router.navigateByUrl('/members'); // If Login success, the user rout to members component
       this.toastr.success("You are logged in!"); // If Login success, green notification will appear
       }, 
-      error => { 
-      console.log(error);
-      this.toastr.error(error.error); // If Login failed, red notification will appear with the error message
-      }
       )
     }
     
