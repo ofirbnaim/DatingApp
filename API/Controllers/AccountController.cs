@@ -40,7 +40,7 @@ namespace API.Controllers
 
             var newUser = new AppUser
             {
-                UserName = registerDto.UserName.ToLower(),
+                UserName = registerDto.UserName,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)), // Convert from string to byte[] and then Get the Hash of 'password'
                 PasswordSalt = hmac.Key // Generated randomly key
             };
@@ -67,7 +67,7 @@ namespace API.Controllers
                 return Unauthorized("User is invalid");
             }
 
-            // This next lines are the reverse og "Registered" function
+            // This next lines are the reverse of "Registered" function
             using var hmac = new HMACSHA512(user.PasswordSalt); // Because there is a user with that name in the DB, he have a 'PasswordSalt'. I take it and put it in 'hmac'.
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password)); // If 'loginDto.Password' is the same password the user registered with, then 'computedHash' and 'user.PasswordHash' should be identical
@@ -81,7 +81,7 @@ namespace API.Controllers
             // We prefere to return a DTO because of security issues.
             return new UserDto
             {
-                UserName = loginDto.UserName,
+                UserName = loginDto.UserName.ToLower(),
                 Token = _tokenService.CreateToken(user)
             };
         }
@@ -90,7 +90,6 @@ namespace API.Controllers
         {
             return await _context.Users.AnyAsync(x => x.UserName == userName.ToLower());
         }
-
 
     }
 }

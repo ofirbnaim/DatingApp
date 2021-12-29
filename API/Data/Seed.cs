@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace API.Data
 {
     public class Seed
@@ -41,6 +42,9 @@ namespace API.Data
 
                 user.UserName = user.UserName.ToLower();
                 user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
+                Console.WriteLine($"Hash: {user.PasswordHash}");
+                user.PasswordSalt = hmac.Key;
+                Console.WriteLine($"Salt: {user.PasswordSalt}");
 
                 //Only tracking
                 context.Users.Add(user);
